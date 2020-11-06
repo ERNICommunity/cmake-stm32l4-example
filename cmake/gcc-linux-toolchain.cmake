@@ -1,0 +1,21 @@
+# GCC Linux Toolchain
+
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_PROCESSOR amd)
+
+set(CMAKE_C_COMPILER    gcc CACHE STRING "")
+set(CMAKE_CXX_COMPILER  g++ CACHE STRING "")
+set(CMAKE_ASM_COMPILER  gcc)
+set(CMAKE_LINKER        gcc)
+set(CMAKE_SIZE_UTIL     size)
+set(CMAKE_OBJCOPY       objcopy)
+set(CMAKE_OBJDUMP       objdump)
+set(CMAKE_NM_UTIL       nm)
+
+set(CMAKE_C_FLAGS_DEBUG "-O0 -g3")
+set(CMAKE_CXX_ASM_FLAGS_DEBUG "-O0 -g3")
+set(CMAKE_C_ASM_FLAGS_DEBUG "-g3")
+
+set(CMAKE_C_FLAGS_RELEASE "-Os")
+set(CMAKE_CXX_FLAGS_RELEASE "-Os")
+set(CMAKE_ASM_FLAGS_RELEASE "")

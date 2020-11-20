@@ -1,1 +1,13 @@
 
+[submodule "external/stm32l4xx_hal_driver"]
+	path = external/stm32l4xx_hal_driver
+	url = https://github.com/STMicroelectronics/stm32l4xx_hal_driver
+[submodule "external/cmsis_device_l4"]
+	path = external/cmsis_device_l4
+	url = https://github.com/STMicroelectronics/cmsis_device_l4
+[submodule "external/cmsis_core"]
+	path = external/cmsis_core
+	url = https://github.com/STMicroelectronics/cmsis_core
+[submodule "tests/googletest"]
+	path = tests/googletest
+	url = https://github.com/google/googletest.git

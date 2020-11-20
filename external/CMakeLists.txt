@@ -1,11 +1,32 @@
 # External
 
-set(TARGET ${LIBRARY_STM32CUBEL4})
-set(CMSIS_PATH "STM32CubeL4/Drivers/CMSIS")
-set(HAL_PATH "STM32CubeL4/Drivers/STM32L4xx_HAL_Driver")
-set(FREERTOS_PATH "STM32CubeL4/Middlewares/Third_Party/FreeRTOS/Source")
 
-set(SOURCES
+# Add CMSIS 
+
+set(CMSIS_TARGET ${LIBRARY_CMSIS})
+set(CMSIS_CORE_PATH "cmsis_core")
+set(CMSIS_DEVICE_PATH "cmsis_device_l4")
+
+set(CMSIS_INCLUDE_DIRECTORIES
+    "${CMSIS_CORE_PATH}/Include"
+    "${CMSIS_DEVICE_PATH}/Include"
+)
+
+add_library(${CMSIS_TARGET} INTERFACE)
+target_include_directories(${CMSIS_TARGET} INTERFACE ${CMSIS_INCLUDE_DIRECTORIES})
+
+
+# Add HAL
+
+set(HAL_TARGET ${LIBRARY_HAL})
+set(HAL_PATH "stm32l4xx_hal_driver")
+set(HAL_INCLUDE_DIRECTORIES
+    "../app/stm32cubel4"
+
+    "${HAL_PATH}/Inc"
+    "${HAL_PATH}/Inc/Legacy"
+)
+set(HAL_SOURCES
     "${HAL_PATH}/Src/stm32l4xx_hal.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_adc.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_adc_ex.c"
@@ -36,7 +57,6 @@ set(SOURCES
     "${HAL_PATH}/Src/stm32l4xx_hal_iwdg.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_lcd.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_lptim.c"
-    #"${HAL_PATH}/Src/stm32l4xx_hal_msp_template.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_nand.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_nor.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_opamp.c"
@@ -62,7 +82,6 @@ set(SOURCES
     "${HAL_PATH}/Src/stm32l4xx_hal_swpmi.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_tim.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_tim_ex.c"
-    #"${HAL_PATH}/Src/stm32l4xx_hal_timebase_tim_template.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_tsc.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_uart.c"
     "${HAL_PATH}/Src/stm32l4xx_hal_uart_ex.c"
@@ -93,49 +112,15 @@ set(SOURCES
     "${HAL_PATH}/Src/stm32l4xx_ll_usart.c"
     "${HAL_PATH}/Src/stm32l4xx_ll_usb.c"
     "${HAL_PATH}/Src/stm32l4xx_ll_utils.c"
-
-
-    "${FREERTOS_PATH}/CMSIS_RTOS_V2/cmsis_os2.c"
-
-    "${FREERTOS_PATH}/portable/GCC/ARM_CM4F/port.c"
-
-    "${FREERTOS_PATH}/portable/MemMang/heap_4.c"
-
-    "${FREERTOS_PATH}/croutine.c"
-    "${FREERTOS_PATH}/event_groups.c"
-    "${FREERTOS_PATH}/list.c"
-    "${FREERTOS_PATH}/queue.c"
-    "${FREERTOS_PATH}/stream_buffer.c"
-    "${FREERTOS_PATH}/tasks.c"
-    "${FREERTOS_PATH}/timers.c"
 )
 
-set(INCLUDE_DIRECTORIES
-    "../app/stm32cubel4"
+add_library(${HAL_TARGET} OBJECT ${HAL_SOURCES})
+target_link_libraries(${HAL_TARGET} ${CMSIS_TARGET})
 
-    "${CMSIS_PATH}/Device/ST/STM32L4xx/Include"
-    "${CMSIS_PATH}/Include"
-
-    "${HAL_PATH}/Inc"
-    "${HAL_PATH}/Inc/Legacy"
-
-    "${FREERTOS_PATH}/CMSIS_RTOS_V2"
-
-    "${FREERTOS_PATH}/portable/GCC/ARM_CM4F"
-
-    "${FREERTOS_PATH}/include"
-)
-
-add_library(${TARGET} OBJECT ${SOURCES})
-
-target_compile_definitions(${TARGET}
+target_compile_definitions(${HAL_TARGET}
     PUBLIC
         STM32L475xx
         USE_HAL_DRIVER
 )
 
-target_include_directories(${TARGET} PUBLIC ${INCLUDE_DIRECTORIES})
-
-if (NOT CMAKE_CROSSCOMPILING)
-    add_subdirectory("googletest")
-endif()
+target_include_directories(${HAL_TARGET} PUBLIC ${HAL_INCLUDE_DIRECTORIES})

@@ -3,11 +3,10 @@
 set(TARGET ${APP})
 
 set(SOURCES
-        "startup/system_stm32l4xx.c"
+        "stm32cubel4/system_stm32l4xx.c"
         "stm32cubel4/stm32l4xx_hal_msp.c"
         "stm32cubel4/stm32l4xx_it.c"
         "stm32cubel4/stm32l4xx_hal_timebase_tim.c"
-        "stm32cubel4/freertos.c"
         "main.cpp"
 )
 
@@ -25,7 +24,8 @@ add_executable(${TARGET}
 )
 
 target_link_libraries(${TARGET}
-        ${LIBRARY_STM32CUBEL4}
+        ${LIBRARY_CMSIS}
+        ${LIBRARY_HAL}
         ${LIBRARY_LIB}
 )
 

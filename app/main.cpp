@@ -1,49 +1,26 @@
 /**
   ******************************************************************************
-  * @file           : main.c
+  * @file           : main.cpp
   * @brief          : Main program body
   ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
-extern "C"
-{
-  #include "stm32l4xx_hal.h"
-  #include "cmsis_os.h"
-}
+#include "stm32l4xx_hal.h"
 
-#include "calculator.hpp"
+/* Private includes ----------------------------------------------------------*/
 
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
 
-/* Private macro -------------------------------------------------------------*/
-
 /* Private variables ---------------------------------------------------------*/
-
-/* Definitions for defaultTask */
-osThreadId_t defaultTaskHandle;
-const osThreadAttr_t defaultTask_attributes = {
-  "defaultTask",    ///< name of the thread
-  0,                ///< attribute bits
-  nullptr,          ///< memory for control block
-  0,                ///< size of provided memory for control block
-  nullptr,          ///< memory for stack
-  (128 * 4),         ///< size of stack
-  (osPriority_t) osPriorityNormal,   ///< initial thread priority (default: osPriorityNormal)
-  0,                ///< TrustZone module identifier
-  0                 ///< reserved (must be 0)
-};
-
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-void StartDefaultTask(void *argument);
-void Error_Handler(void);
 
-/* Private user code ---------------------------------------------------------*/
+void Error_Handler(void);
 
 /**
   * @brief  The application entry point.
@@ -62,19 +39,18 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
 
-  /* Init scheduler */
-  osKernelInitialize();
+  /* Set initial state of LEDs */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
 
-  /* Create the thread(s) */
-  /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-
-  /* Start scheduler */
-  osKernelStart();
-
-  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
-  while (1){}
+  for (;;)
+  {
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+
+    HAL_Delay(500);
+  }
 }
 
 /**
@@ -101,8 +77,7 @@ void SystemClock_Config(void)
   }
   /** Initializes the CPU, AHB and APB buses clocks
   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -137,11 +112,10 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
@@ -162,26 +136,6 @@ static void MX_GPIO_Init(void)
 }
 
 /**
-  * @brief  Function implementing the defaultTask thread.
-  * @param  argument: Not used
-  * @retval None
-  */
-void StartDefaultTask(void *argument)
-{
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-
-  /* Infinite loop */
-  for(;;)
-  {
-    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
-
-    osDelay(500);
-  }
-}
-
-/**
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM4 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
@@ -191,7 +145,8 @@ void StartDefaultTask(void *argument)
   */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  if (htim->Instance == TIM4) {
+  if (htim->Instance == TIM4)
+  {
     HAL_IncTick();
   }
 }
@@ -202,10 +157,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   */
 void Error_Handler(void)
 {
-  /* User can add his own implementation to report the HAL error return state */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
@@ -215,9 +169,8 @@ void Error_Handler(void)
   */
 void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* User can add his own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  //printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 }
 #endif /* USE_FULL_ASSERT */
 
-/*********************************END OF FILE**********************************/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

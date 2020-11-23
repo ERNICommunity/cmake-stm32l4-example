@@ -2,6 +2,10 @@
 
 Cmake based example project for the [B-L475E-IOT01A](https://www.st.com/resource/en/data_brief/b-l475e-iot01a.pdf) discovery kit with unit tests.
 
+## Status
+![example workflow name](https://github.com/ERNICommunity/cmake-stm32l4-example/workflows/build-app_arm-gcc/badge.svg)
+![example workflow name](https://github.com/ERNICommunity/cmake-stm32l4-example/workflows/buildNtest-core_linux-gcc/badge.svg)
+
 ## Getting Started
 
 ### Prerequisites

@@ -1,4 +1,4 @@
-name: test-lib-core
+name: buildNtest-core_linux-gcc
 on: [push]
 
 jobs:
@@ -7,21 +7,14 @@ jobs:
     steps:
       - name: get-cmake
         uses: lukka/get-cmake@latest
-      - name: check-cmake
-        run: |
-          cmake --version
-          ninja --version  
-      - name: checkout
+      - name: checkout-repo
         uses: actions/checkout@v2
         with:
           submodules: recursive
-      - name: change-permission
+      - name: build-tests
         run: |
           cd ${{ github.workspace }}
           chmod +x tools/build_tests.sh
-      - name: build-core-lib
-        run: |
-          cd ${{ github.workspace }}
           ./tools/build_tests.sh
       - name: test-core-lib
         run: ./build/tests/cmake-stm32l4-example_tests

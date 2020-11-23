@@ -1,14 +1,21 @@
 name: test-lib-core
 on: [push]
+
 jobs:
-  build-core-lib:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: ./tools/build_tests.sh
-  test-core-lib:
-    runs-on: ubuntu-latest
-    needs: build-core-lib
-    steps:
-      - uses: actions/checkout@v2
-      - run: ./build/tests/cmake-stm32l4-example_tests
+  runs-on: ubuntu-latest
+
+  steps:
+
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: build-core-lib
+      run: |
+        cd ${{ github.workspace }}
+        ./tools/build_tests.sh
+
+    - name: test-core-lib
+      uses: actions/checkout@v2
+      run: ./build/tests/cmake-stm32l4-example_tests

@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 set(PROJECT "cmake-stm32l4-example")
 
 set(TARGET "${PROJECT}_app")
-set(LIBRARY_CORE "${PROJECT}_lib")
+set(LIBRARY_CORE "${PROJECT}_core")
 set(LIBRARY_CMSIS "${PROJECT}_lib-cmsis")
 set(LIBRARY_HAL "${PROJECT}_lib-hal")
 

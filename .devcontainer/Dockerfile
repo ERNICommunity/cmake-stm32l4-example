@@ -3,10 +3,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 #Install C++ tools
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
-    # gcc-arm-none-eabi \
-    # binutils-arm-none-eabi \
-    # gdb-arm-none-eabi\ 
-    # openocd \
     wget \
     python3-pip \
     cmake \

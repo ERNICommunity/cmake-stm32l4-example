@@ -1,7 +1,7 @@
 # Source
 
-set(TARGET ${LIBRARY_LIB})
-set(INCLUDE_DIRECTORIES "../include")
+set(TARGET ${LIBRARY_CORE})
+set(INCLUDE_DIRECTORIES ".")
 set(SOURCES 
 	"calculator.cpp"
 )

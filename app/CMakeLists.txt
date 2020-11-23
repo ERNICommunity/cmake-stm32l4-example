@@ -1,6 +1,20 @@
 # App
 
-set(TARGET ${APP})
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+
+set(PROJECT "cmake-stm32l4-example")
+
+set(TARGET "${PROJECT}_app")
+set(LIBRARY_CORE "${PROJECT}_lib")
+set(LIBRARY_CMSIS "${PROJECT}_lib-cmsis")
+set(LIBRARY_HAL "${PROJECT}_lib-hal")
+
+project(${TARGET} VERSION 1.0.0 LANGUAGES C CXX ASM)
+
+include(../cmake/utilities.cmake)  # Utilities for binary creation
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../external ${CMAKE_CURRENT_BINARY_DIR}/external)
+add_subdirectory("../core" ${CMAKE_CURRENT_BINARY_DIR}/core)
 
 set(SOURCES
         "stm32cubel4/system_stm32l4xx.c"
@@ -26,7 +40,7 @@ add_executable(${TARGET}
 target_link_libraries(${TARGET}
         ${LIBRARY_CMSIS}
         ${LIBRARY_HAL}
-        ${LIBRARY_LIB}
+        ${LIBRARY_CORE}
 )
 
 target_link_options(${TARGET}

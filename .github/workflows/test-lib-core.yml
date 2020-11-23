@@ -5,16 +5,16 @@ jobs:
   test-lib-core:
     runs-on: ubuntu-latest
     steps:
+      - name: get-cmake
+        uses: lukka/get-cmake@latest
+      - name: check-cmake
+        run: |
+          cmake --version
+          ninja --version  
       - name: checkout
         uses: actions/checkout@v2
         with:
           submodules: recursive
-      - name: check-cmake
-        run: |
-          cmake --version
-      - name: check-ninja
-        run: |
-          ninja --version
       - name: build-core-lib
         run: |
           cd ${{ github.workspace }}

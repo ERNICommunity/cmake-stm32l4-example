@@ -8,8 +8,6 @@ SCRIPT=$(readlink -f "$0")
 SCRIPTDIR=$(dirname "$SCRIPT")
 BASEDIR=$(dirname "$SCRIPTDIR")
 
-# echo $BASEDIR
-
 # If you want to build into a different directory, change this variable
 SOURCEDIR="$BASEDIR/tests"
 BUILDDIR="$BASEDIR/build/tests"

@@ -1,5 +1,5 @@
 {
-    "files.autoSave":"onWindowChange",
+    "files.autoSave":"onFocusChange",
 
     "cmake.configureOnOpen": true,
     "cmake.buildDirectory": "${workspaceFolder}/build/${buildKit}-${buildType}",

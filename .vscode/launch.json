@@ -1,3 +1,37 @@
 {
     "version": "0.2.0",
+        "configurations": [
+          {
+            "type": "cortex-debug",
+            "request": "launch",
+            "name": "Debug-On-Target",
+            "executable": "${workspaceRoot}/build/app/cmake-stm32l4-example_app.elf",
+            "gdbTarget": "192.168.178.21:3333",
+            "cwd": "${workspaceFolder}",
+            "servertype": "external",
+            "runToMain": false,
+            "showDevDebugOutput": false,
+            "preLaunchCommands": [
+              "monitor reset halt",
+            ],
+            "preRestartCommands": ["monitor reset"],
+          },
+          {
+            "name": "Debug-Nativ",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "logging": {
+              "trace": true,
+              "traceResponse": true
+            },
+            "linux": {
+              "MIMode": "gdb",
+            },
+          },
+    ]
 }

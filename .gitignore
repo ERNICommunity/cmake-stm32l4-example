@@ -1,2 +1,5 @@
 # Folders
 build/
+
+# Cortex-Debug files
+.vscode/.cortex-debug*

@@ -5,7 +5,7 @@
             "type": "cortex-debug",
             "request": "launch",
             "name": "Debug-On-Target",
-            "executable": "${workspaceRoot}/build/app/cmake-stm32l4-example_app.elf",
+            "executable": "${workspaceRoot}/build/GCC for arm-none-eabi 9.2.1-Debug/app/cmake-stm32l4-example_app.elf",
             "gdbTarget": "192.168.178.21:3333",
             "cwd": "${workspaceFolder}",
             "servertype": "external",

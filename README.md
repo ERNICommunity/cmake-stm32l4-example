@@ -50,7 +50,7 @@ Cmake based example project for the [B-L475E-IOT01A](https://www.st.com/resource
 - Start OpenODC (Replace MY_IP_ADDRESS with your actual IP): 
   ```
   cd path_to_openocd_folder
-  openocd -f scripts/interface/stlink-v2.cfg -f scripts/board/stm32l4discovery.cfg -c "gdb_port 3333" -c "telnet_port 4444" -c "bindto MY_IP_ADDRESS" -c "init; reset init; halt"
+  openocd -f scripts/interface/stlink.cfg -f scripts/board/stm32l4discovery.cfg -c "gdb_port 3333" -c "telnet_port 4444" -c "bindto MY_IP_ADDRESS" -c "init; reset init; halt"
   ```
 - Open `.vscode/launch.json` file
 - Change go to the 'cortex-debug' configuration an change the IP-address under `"gdbTarget": "MY_IP_ADDRESS:3333"` to your IP-address
@@ -68,3 +68,4 @@ At moment an autoconfiguration of the IP-address isn't possible.
 - Flash with VS Code
 - Use conan packages for googletest
 - Autoconfig for IP-address in debug settings
+- Integrate unit test building in vs code cmake extension (at moment only possible via script)

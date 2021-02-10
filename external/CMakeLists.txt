@@ -21,7 +21,7 @@ target_include_directories(${CMSIS_TARGET} INTERFACE ${CMSIS_INCLUDE_DIRECTORIES
 set(HAL_TARGET ${LIBRARY_HAL})
 set(HAL_PATH "stm32l4xx_hal_driver")
 set(HAL_INCLUDE_DIRECTORIES
-    "../app/stm32cubel4"
+    "../app/B-L475E-IOT01A/stm32cubel4"
 
     "${HAL_PATH}/Inc"
     "${HAL_PATH}/Inc/Legacy"

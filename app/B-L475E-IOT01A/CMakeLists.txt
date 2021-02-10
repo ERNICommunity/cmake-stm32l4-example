@@ -21,14 +21,14 @@ set(LIBRARY_CMSIS "${PROJECT}_lib-cmsis")
 set(LIBRARY_HAL "${PROJECT}_lib-hal")
 
 # Includes
-include(../cmake/utilities.cmake)  # Utilities for binary creation
+include(../../cmake/utilities.cmake)  # Utilities for binary creation
 
 # Disable common networking component, STM has it's own
 set(DISABLE_COMMON_NETWORK true)
 
 # Add libararies
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../external ${CMAKE_CURRENT_BINARY_DIR}/external)
-add_subdirectory("../core" ${CMAKE_CURRENT_BINARY_DIR}/core)
+add_subdirectory("../../external" ${CMAKE_CURRENT_BINARY_DIR}/external)
+add_subdirectory("../../core" ${CMAKE_CURRENT_BINARY_DIR}/core)
 
 # Add files for the build process
 set(SOURCES

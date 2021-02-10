@@ -48,8 +48,13 @@ RUN apt-get autoremove -y \
 
 # pull the gcc-arm-none-eabi tarball
 WORKDIR /work
-RUN wget -qO- https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2 | tar -xj
+RUN wget -qO- 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2' | tar -xj
 ENV PATH $PATH:/work/gcc-arm-none-eabi-9-2019-q4-major/bin
+
+# pull the gcc-arm-linux-gnueabihf tarball
+WORKDIR /work
+RUN wget -qO- 'https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/Raspberry%20Pi%20GCC%20Cross-Compiler%20Toolchains/Buster/GCC%2010.2.0/Raspberry%20Pi%201%2C%20Zero/cross-gcc-10.2.0-pi_0-1.tar.gz' | tar -xz
+ENV PATH $PATH:/work/cross-pi-gcc-10.2.0-0/bin
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog

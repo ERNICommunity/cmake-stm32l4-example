@@ -31,7 +31,7 @@ Cmake based example project for the [B-L475E-IOT01A](https://www.st.com/resource
   Press `ctrl+shift+p` to open the command palette and enter `Toggle Integrated Terminal`.
 - Build the app or the tests with the scripts in the tools folder:
   ```ssh
-  ./tools/build_app.sh
+  ./tools/build_app_cortex-m4.sh
   ```
 
 ### Flash the image
@@ -69,3 +69,4 @@ At moment an autoconfiguration of the IP-address isn't possible.
 - Use conan packages for googletest
 - Autoconfig for IP-address in debug settings
 - Integrate unit test building in vs code cmake extension (at moment only possible via script)
+- Separate include dir in external libs from app

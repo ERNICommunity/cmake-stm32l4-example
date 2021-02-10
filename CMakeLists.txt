@@ -11,5 +11,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 #Add projects
-add_subdirectory("app")
+#add_subdirectory("app/B-L475E-IOT01A")
+add_subdirectory("app/raspberry-pi")
 #add_subdirectory("tests")
